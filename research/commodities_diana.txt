@@ -1,0 +1,45 @@
+---------------------------------------------------------------COMMODITIES---------------------------------------------------------------
+-------------------------------------------------------------<EM CONSTRUÇÃO>-------------------------------------------------------------
+
+
+DEFINIÇÃO: Commodity ou, em português, comódite, corresponde a produtos de qualidade e características uniformes, que não são diferenciados de 			acordo com quem os produziu ou de sua origem, sendo seu preço uniformemente determinado pela oferta e procura internacional. As 				commodities são usadas na compra e venda de mercadorias fungíveis, como por exemplo o petróleo, a resma de papel, leite, cobre e outros 		tipos de metais, madeira (derivada de desmatamento ou não) e plantas (para usos medicinais).
+		
+			Em termos gerais, algumas características que determinam uma commodity são:
+				- Produtos de origem primária;
+			    - Grande importância mundial;
+			    - Pequeno grau de industrialização;
+			    - Produção em larga escala;
+			    - Comercialização mundial;
+			    - Qualidade e características uniformes de produção, sem diferenciação de marca;
+			    - Podem ser estocadas sem perda de qualidade.
+
+
+
+TIPOS COMMODITIES:
+	    - Commodities minerais: petróleo, ouro, minério de ferro, etc.
+	    - Commodities financeiras: real, euro, dólar, etc.
+	    - Commodities ambientais: água, madeira, energia, etc.
+	    - Commodities agrícolas: soja, trigo, café, algodão, borracha, etc.
+
+
+
+IMPACTO COMMODITIES NA BOLSA: 
+    	- Diminuição da demanda mundial faz o preço da commodity cair;
+    	- Alta na demanda mundial faz o preço subir.
+		
+		Esta oscilação afeta diretamente as empresas produtoras dessas mercadorias. O grande detalhe é que algumas das principais companhias do país se enquadram nessa categoria.
+
+		Também é possível lucrar com as oscilações na cotação delas e isso pode ser feito basicamente de 2 jeitos:
+		- Investindo em empresas que produzam uma commodity cujos preços estejam em tendência de alta.
+		- Realizando operações em Contratos Futuros (o segredo dos grandes investidores).
+		- https://www.tororadar.com.br/blog/commodities-o-que-e-significado (ver caso especificação contratos futuros)
+
+
+
+WEBSITES COM GRAFICOS/TABELAS: 
+		- https://pt.investing.com/commodities/
+
+
+API FOR COMMODITY DATA:
+		- https://blog.quandl.com/api-for-commodity-data
+		- (Quandl API - free commodity price data)
