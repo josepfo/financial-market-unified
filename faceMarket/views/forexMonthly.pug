@@ -1,0 +1,18 @@
+extends header
+block content
+  .w3-container
+      h1= answer["Meta Data"]["1. Information"]
+      table.w3-table-all
+        tr
+          th Date
+          th Open
+          th High
+          th Low
+          th Close
+        each val, index in answer["Time Series FX (Monthly)"]
+          tr
+            td= index
+            td= val["1. open"]
+            td= val["2. high"]
+            td= val["3. low"]
+            td= val["4. close"]
