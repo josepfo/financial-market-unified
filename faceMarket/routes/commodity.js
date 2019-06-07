@@ -57,19 +57,13 @@ router.get('/', function(req, res) {
 
 /* GET Commodity Period. */
 router.get('/:com/:period', function(req, res) {
-  // get period
-  var time_period
-  if(req.params.period.localeCompare("hourly") == 0) {
-    time_period = 'none'
-  }
-  else if(req.params.period.localeCompare("daily") == 0) {
-    time_period = 'daily'
-  }
-  else if(req.params.period.localeCompare("weekly") == 0) {
-    time_period = 'weekly'
-  }
-  else if(req.params.period.localeCompare("monthly") == 0) {
-    time_period = 'monthly'
+  
+  // filter wrong pediod
+  if( req.params.period.localeCompare("daily") != 0 &&
+      req.params.period.localeCompare("weekly") != 0 &&
+      req.params.period.localeCompare("monthly") != 0  ) 
+  {
+    return res.redirect('/commodity')
   }
 
   // get commodity
@@ -96,14 +90,15 @@ router.get('/:com/:period', function(req, res) {
     com = 'CME_NG1'
   }
 
-  axios.get('https://www.quandl.com/api/v3/datasets/CHRIS/' + com + '/data.json?&limit=100&collapse=' + time_period + API_KEY)
+  axios.get('https://www.quandl.com/api/v3/datasets/CHRIS/' + com + '/data.json?&limit=50&collapse=' + req.params.period + API_KEY)
     .then(resposta=> {
       //console.log(resposta.data.dataset_data.data)
       res.render('commodity-time', { commodity: req.params.com + ' ' + req.params.period, answer: resposta.data.dataset_data.data })
     })
     .catch(erro => {
       console.log('Erro ao fazer pedido a commodity.')
-      res.render('error', {error: erro, message: "Erro ao fazer pedido a Quandl."})
+      return res.redirect('/commodity')
+      //res.render('error', {error: erro, message: "Erro ao fazer pedido a Quandl."})
     })
 
 });

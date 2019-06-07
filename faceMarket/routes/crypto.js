@@ -31,24 +31,20 @@ router.get('/:crypto/:period', function(req, res) {
       break;
   }
 
-  axios.get('https://min-api.cryptocompare.com/data/' + time_period + '?fsym=' + req.params.crypto + '&tsym=USD&limit=10' + API_KEY)
+  axios.get('https://min-api.cryptocompare.com/data/' + time_period + '?fsym=' + req.params.crypto + '&tsym=USD&limit=50' + API_KEY)
     .then(resposta=> {
-      
       var ans = resposta.data.Data
-      //console(ans)
       // reverter lista
-      //ans = ans.reverse()
-      // pegar apenas 10 primeiros elementos
-      //ans = ans.slice(0, 10)
-      
+      ans = ans.reverse()      
       // modificar milisec para date
-      //ans.forEach(entry => entry.time = moment(entry.time).format('MMMM MM YYYY h:mm:ss'));
+      ans.forEach(entry => entry.time = moment.unix(entry.time).format('YYYY-MM-DD H:mm:ss'));
       //console.log(resposta.data.dataset_data.data)
       res.render('crypto-time', { crypto: req.params.crypto + ' ' + req.params.period, answer: ans })
     })
     .catch(erro => {
       console.log('Erro ao fazer pedido a commodity.')
-      res.render('error', {error: erro, message: "Erro ao fazer pedido a Cryptocompare."})
+      res.redirect('/crypto')
+      //res.render('error', {error: erro, message: "Pedido não suportado."})
     })
 
 });
