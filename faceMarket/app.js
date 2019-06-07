@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser')
 var logger = require('morgan');
+var mongoose = require('mongoose')
 
 var indexRouter = require('./routes/index');
 var cryptoRouter = require('./routes/crypto');
@@ -13,6 +14,11 @@ var commodityRouter = require('./routes/commodity');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+//Base de Dados
+mongoose.connect('mongodb://127.0.0.1:27017/faceMarket', {useNewUrlParser:true})
+  .then(()=> console.log('Mongo ready: ' + mongoose.connection.readyState))
+  .catch(()=> console.log('Erro de conexão.'))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,8 +1,14 @@
-var User = require('../../models/user')
+var User = require('../models/user')
 
 module.exports.consultar = uid => {
     return User
         .findOne({_id: uid})
+        .exec()
+}
+
+module.exports.email = em => {
+    return User
+        .findOne({email: em})
         .exec()
 }
 
