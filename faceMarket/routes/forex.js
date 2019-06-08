@@ -4,11 +4,6 @@ var axios = require('axios');
 
 API_KEY = '&apikey=STKRW67RG4VYBDMK'
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express' });
-});
-
 /* GET Pair Period. */
 router.get('/:fst/:snd/:period', function(req, res) {
   var time_period
