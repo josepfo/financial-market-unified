@@ -2,9 +2,8 @@ var express = require('express');
 var router = express.Router();
 var User = require('../controllers/user')
 
-/* GET users listing. */
-router.get('/:uid', function(req, res, next) {
-	User.consultar(req.params.uid)
+router.get('/:email', function(req, res, next) {
+	User.email(req.params.email)
 		.then(dados => res.jsonp(dados))
 		.catch(erro => res.status(500).send('Erro na consulta de utilizador.'))
 });
