@@ -2,18 +2,14 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose');
-
+var passport = require('passport')
+var mongoose = require('mongoose')
 var uuid = require('uuid/v4')
 var session = require('express-session')
 var FileStore = require('session-file-store')(session)
 
-var passport = require('passport')
-var LocalStrategy = require('passport-local').Strategy
-var axios = require('axios')
-var flash = require('connect-flash')
+require('./auth/auth')
 
 var indexRouter = require('./routes/index');
 var cryptoRouter = require('./routes/crypto');
@@ -22,62 +18,39 @@ var forexRouter = require('./routes/forex');
 var commodityRouter = require('./routes/commodity');
 var usersRouter = require('./routes/users');
 
-// Configuração de estratégia de autenticação
-passport.use(new LocalStrategy(
-	{usernameField: 'email'},
-	(email,password,done)=>{
-		axios.get('http://localhost:4770/users/'+email)
-			.then(dados => {
-				const user = dados.data
-				if(!user){return done(null,false,{message:'Utilizador inexistente!'})}
-				if(password!=user.password){return done(null,false,{message:'Password inválida!'})}
-				return done(null,user)
-			})
-			.catch(erro => done(erro))
-	}
-))
-
-/*// Serialização do utilizador
-passport.serializeUser((user, done) => {
-	done(null, user._id)
-})
-
-// Função inversa
-passport.deserializeUser((uid, done) => {
-	axios.get('http://localhost:4770/users/'+uid)
-		.then(dados => done(null, dados.data))
-		.catch(erro => done(erro, false))
-})*/
-
 var app = express();
 
-/*// Middleware da Sessão
+// Base de Dados
+const config = {
+	autoIndex: false,
+	useNewUrlParser: true,
+};
+
+mongoose
+	.connect('mongodb://127.0.0.1:27017/faceMarket',config)
+	.then(() => console.log('Mongo ready: ' + mongoose.connection.readyState))
+	.catch(erro => console.log('Erro de conexão: ' + erro))
+
+// Configuração da sessão
 app.use(session({
-	genid: req => {
-		console.log('Dentro do middleware da sessão: ' + req.sessionID)
+	genid: () => {
 		return uuid()
 	},
 	store: new FileStore(),
-	secret: 'faceMarket 2019',
+	secret: 'faceMarketIS',
 	resave: false,
 	saveUninitialized: true
-}))*/
+}))
 
+// Inicialização do passport
 app.use(passport.initialize())
 app.use(passport.session())
-
-//Base de Dados
-mongoose.connect('mongodb://127.0.0.1:27017/faceMarket', {useNewUrlParser:true})
-	.then(()=> console.log('Mongo ready: ' + mongoose.connection.readyState))
-	.catch(()=> console.log('Erro de conexão.'))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

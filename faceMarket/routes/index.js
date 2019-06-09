@@ -1,35 +1,71 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
+var jwt = require('jsonwebtoken')
 var passport = require('passport');
 
-function verificaAutenticacao(req,res,next){
-	if(req.isAuthenticated()) next()
-	else res.redirect('/signinup')
-}
-
 /* GET home page. */
-router.get('/', verificaAutenticacao, (req, res, next) => {
+router.get('/', passport.authenticate('protegida', {session: false,
+        failureRedirect: '/signinup' 
+    }), (req, res) => {
 	res.render('index', { title: 'FaceMarket' });
 });
 
 /* Sign in or Sign up */
-router.get('/signinup', function(req, res, next) {
+router.get('/signinup', (req, res) => {
 	res.render('signinup');
 });
 
-router.post('/login', passport.authenticate('local',{
-	successRedirect: '/',
-	failureRedirect: '/signinup'
-}))
-
-router.post('/register', function(req, res) {
-	axios.post('http://localhost:4770/users', req.body)
-		.then(()=> res.redirect('/'))
-		.catch(erro => {
-			console.log('Email já existe.')
-			res.redirect('/signinup')
-	})
+// Login de um utilizador
+router.post('/login', async (req, res, next) => {
+    passport.authenticate('login', async (err, user, info) => {     
+        try {
+            if(err || !user){
+                if(err) return next(err);
+                else return next(new Error('Utilizador inexistente.'))
+            }
+            req.login(user, {session: false}, async (error) => {
+                if(error) return next(error)
+                const myuser = {_id: user._id} 
+                const token = jwt.sign({user: myuser}, 'faceMarketIS')
+                req.user.token = token
+                req.session.token = token
+                res.redirect('/')
+            });     
+        } 
+        catch (error) {
+            return next(error);
+        }
+    })(req, res, next);
 });
+
+// Registo de um utilizador
+router.post('/register', async (req, res, next) => {
+    passport.authenticate('register', async (err, user, info) => {     
+        try {
+            if(err || !user){
+                if(err) return next(err);
+                else return next(new Error('Utilizador inexistente.'))
+            }
+            req.login(user, {session: false}, async (error) => {
+                if(error) return next(error)
+                const myuser = {_id: user._id} 
+                const token = jwt.sign({user: myuser}, 'faceMarketIS')
+                req.user.token = token
+                req.session.token = token
+                res.redirect('/')
+            });     
+        } 
+        catch (error) {
+            return next(error);
+        }
+    })(req, res, next);
+});
+
+router.get('/logout',(req,res) => {
+    req.session.destroy
+    req.logout()
+    res.redirect('/signinup')
+})
 
 module.exports = router;
