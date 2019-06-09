@@ -16,7 +16,6 @@ var cryptoRouter = require('./routes/crypto');
 var stockRouter = require('./routes/stock');
 var forexRouter = require('./routes/forex');
 var commodityRouter = require('./routes/commodity');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -61,7 +60,6 @@ app.use('/crypto', cryptoRouter);
 app.use('/stock', stockRouter);
 app.use('/forex', forexRouter);
 app.use('/commodity', commodityRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
