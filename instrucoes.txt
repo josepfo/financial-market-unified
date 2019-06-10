@@ -1,0 +1,6 @@
+ininiar Mongo Server
+-abrir cmd.exe
+-"mongod"
+
+correr localmente o site
+-"npm start"
