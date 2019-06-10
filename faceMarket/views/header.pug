@@ -2,61 +2,60 @@ extends layout
 block header
 	.w3-card-4
 		header.w3-container.w3-red
-			h1 FACEMARKET
+			h1(style='display:inline-block') 
+				a.w3-button.w3-dark-red(href='http://localhost:4770/') FACEMARKET
+			h1(style='display:inline-block;float:right')
+				a.w3-button.w3-dark-red(href='http://localhost:4770/logout') Logout
 		.w3-container
 			.w3-row
 				.w3-col.m3.l2
 					img(src="/images/logo.jpg" alt="logo" style="width:100%;max-width:400px")
-					p.w3-card-2.w3-small.w3-padding(style="text-align: justify") Phasellus vehicula tortor in tempus ultricies. Pellentesque viverra, nunc non pellentesque lacinia, justo nulla tempus purus, ut molestie felis mi et purus. Nam porta vulputate pretium. Curabitur luctus elit dictum mauris ullamcorper tempus.
-					a.w3-button.w3-red.w3-block.w3-round-xxlarge.w3-margin-bottom(href='http://localhost:4770/datafiles' style='padding:8px 40px') Edit
-					a.w3-button.w3-red.w3-block.w3-round-xxlarge(href='http://localhost:4770/sessions' style='padding:8px 29px') Logout
-					br
 				.w3-col.m9.l10(style="padding-left: 30px; padding-right: 1px")
 					br
-					br
-					link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
-					form(class="example" action="action_page.php")
-						input(type="text" placeholder="Search..." name="search" style="box-sizing: border-box; padding: 10px; font-size: 17px; border: 1px solid grey; float: left; width: 80%; background: #f1f1f1")
-						button.w3-gray.w3-btn(type="submit" style=" float: left; width: 20%; padding: 10px; color: white; font-size: 17px; border: 1px solid grey; border-left: none; cursor: pointer;")
-							i(class="fa fa-search")
-					br
-					br
-					br
-					.w3-row-padding
-						.w3-half 
-							h1(style="font-size: 25px") Choose market:
-							input(type="checkbox" checked="checked")
-							span(class="checkmark")
-							label(class="container")  Commodities
-							br
-							input(type="checkbox")
-							span(class="checkmark")
-							label(class="container")  Crypto
-							br
-							input(type="checkbox")
-							span(class="checkmark")
-							label(class="container")  Forex
-							br
-							input(type="checkbox")
-							span(class="checkmark")
-							label(class="container")  Stocks
-						.w3-half 
-							h1(style="font-size: 25px") Choose periodicity:
-							form()
+					form.w3-container(method='POST' action='/search')
+						.w3-row-padding
+							.w3-third 
+								h1(style="font-size: 25px") Choose market:
 								.w3-checkbox
-									input(type = "radio" name = "periodicity" value = "h" checked)
+									input(type = "radio" name = "market" value = "commodity" checked)
+									label  Commodities
+								.w3-checkbox
+									input(type = "radio" name = "market" value = "crypto")
+									label  Crypto
+								.w3-checkbox
+									input(type = "radio" name = "market" value = "forex")
+									label  Forex
+								.w3-checkbox
+									input(type = "radio" name = "market" value = "stock")
+									label  Stocks
+							.w3-third
+								select(name='commodity' style='margin:10px')
+									option(value='FB') Facebook
+								br
+								select(name='crypto' style='margin:10px')
+									option(value='FB') Facebook
+								br
+								select(name='forex1' style='margin:10px')
+									option(value='FB') Facebook
+								select(name='forex2' style='margin:10px')
+									option(value='FB') Facebook
+								br
+								select(name='stock' style='margin:10px')
+									option(value='FB') Facebook
+							.w3-third 
+								h1(style="font-size: 25px") Choose periodicity:
+								.w3-checkbox
+									input(type = "radio" name = "periodicity" value = "hourly" checked)
 									label  Hourly
 								.w3-checkbox
-									input(type = "radio" name = "periodicity" value = "d")
+									input(type = "radio" name = "periodicity" value = "daily")
 									label  Daily
 								.w3-checkbox
-									input(type = "radio" name = "periodicity" value = "w")
+									input(type = "radio" name = "periodicity" value = "weekly")
 									label  Weekly
 								.w3-checkbox
-									input(type = "radio" name = "periodicity" value = "m")
+									input(type = "radio" name = "periodicity" value = "monthly")
 									label  Monthly
-					a.w3-button.w3-gray.w3-right.w3-round-xxlarge(href='http://localhost:4770/sessions' style='padding:8px 29px') Submit
-					br
-					br
+						input.w3-button.w3-gray.w3-right.w3-round-xxlarge(type="submit" value="Submit" style='padding:8px 29px')
 					hr
 					block content

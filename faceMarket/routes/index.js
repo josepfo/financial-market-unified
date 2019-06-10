@@ -8,7 +8,21 @@ var passport = require('passport');
 router.get('/', passport.authenticate('protegida', {session: false,
         failureRedirect: '/signinup' 
     }), (req, res) => {
-	res.render('index', { title: 'FaceMarket' });
+	res.render('index');
+});
+
+router.post('/search', passport.authenticate('protegida', {session: false,
+        failureRedirect: '/signinup' 
+    }), (req, res) => {
+        if(req.body.market==='crypto'){
+            res.redirect('/'+req.body.market+'/'+req.body.crypto+'/'+req.body.periodicity)
+        }else if(req.body.market==='commodity'){
+            res.redirect('/'+req.body.market+'/'+req.body.commodity+'/'+req.body.periodicity)
+        }else if(req.body.market==='forex'){
+            res.redirect('/'+req.body.market+'/'+req.body.forex1+'/'+req.body.forex2+'/'+req.body.periodicity)
+        }else if(req.body.market==='stock'){
+            res.redirect('/'+req.body.market+'/'+req.body.stock+'/'+req.body.periodicity)
+        }
 });
 
 /* Sign in or Sign up */
