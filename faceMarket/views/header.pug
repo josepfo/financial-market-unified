@@ -12,20 +12,21 @@ block header
 						.w3-row-padding
 							.w3-third 
 								h1(style="font-size: 25px") Choose market:
-								.w3-checkbox
-									input(type = "radio" name = "market" value = "commodity" checked)
-									label  Commodities
-								.w3-checkbox
-									input(type = "radio" name = "market" value = "crypto")
-									label  Crypto
-								.w3-checkbox
-									input(type = "radio" name = "market" value = "forex")
-									label  Forex
-								.w3-checkbox
-									input(type = "radio" name = "market" value = "stock")
-									label  Stocks
+								div(id='marketRadio')
+									.w3-checkbox
+										input(type = "radio" name = "market" value = "commodity" id='commodityRadio' checked)
+										label(for='commodityRadio')  Commodities
+									.w3-checkbox
+										input(type = "radio" name = "market" value = "crypto" id='cryptoRadio')
+										label(for='cryptoRadio')  Crypto
+									.w3-checkbox
+										input(type = "radio" name = "market" value = "forex" id='forexRadio')
+										label(for='forexRadio')  Forex
+									.w3-checkbox
+										input(type = "radio" name = "market" value = "stock" id='stockRadio')
+										label(for='stockRadio')  Stocks
 							.w3-third
-								select(name='commodity' style='margin:10px')
+								select(name='commodity' style='margin-top:60px' id='commodityList')
 									option(value='Gold') Gold
 									option(value='Silver') Silver
 									option(value='Platinum') Platinum
@@ -33,8 +34,7 @@ block header
 									option(value='Copper') Copper
 									option(value='Oil') Oil
 									option(value='Natural Gas') Natural Gas
-								br
-								select(name='crypto' style='margin:10px')
+								select(name='crypto' style='margin-top:60px' id='criyptoList')
 									option(value='BTC') Bitcoin
 									option(value='XRP') XRP
 									option(value='ETH') Ethereum
@@ -45,8 +45,7 @@ block header
 									option(value='AION') Aion
 									option(value='BRC') Baer Chain
 									option(value='BNB') Binance Coin
-								br
-								select(name='forex1' style='margin:10px')
+								select(name='forex1' style='margin-top:50px' id='forex1List')
 									option(value='USD') US dollar
 									option(value='EUR') Euro
 									option(value='JPY') Japanese yen
@@ -57,7 +56,7 @@ block header
 									option(value='CNH') Chinese renminbi
 									option(value='SEK') Swedish krona
 									option(value='NZD') New Zealand dollar
-								select(name='forex2' style='margin:10px')
+								select(name='forex2' style='margin-top:60px' id='forex2List')
 									option(value='USD') US dollar
 									option(value='EUR') Euro
 									option(value='JPY') Japanese yen
@@ -68,8 +67,7 @@ block header
 									option(value='CNH') Chinese renminbi
 									option(value='SEK') Swedish krona
 									option(value='NZD') New Zealand dollar
-								br
-								select(name='stock' style='margin:10px')
+								select(name='stock' style='margin-top:60px' id='stockList')
 									option(value='FB') Facebook
 									option(value='BUD') Anheuser-Busch InBev
 									option(value='ANTM') Anthem
@@ -123,17 +121,17 @@ block header
 							.w3-third 
 								h1(style="font-size: 25px") Choose periodicity:
 								.w3-checkbox
-									input(type = "radio" name = "periodicity" value = "hourly" checked)
-									label  Hourly
+									input(type = "radio" name = "periodicity" value = "hourly" checked id='hourlyRadio')
+									label(for='hourlyRadio')  Hourly
 								.w3-checkbox
-									input(type = "radio" name = "periodicity" value = "daily")
-									label  Daily
+									input(type = "radio" name = "periodicity" value = "daily" id='dailyRadio')
+									label(for='dailyRadio')  Daily
 								.w3-checkbox
-									input(type = "radio" name = "periodicity" value = "weekly")
-									label  Weekly
+									input(type = "radio" name = "periodicity" value = "weekly" id='weeklyRadio')
+									label(for='weeklyRadio')  Weekly
 								.w3-checkbox
-									input(type = "radio" name = "periodicity" value = "monthly")
-									label  Monthly
+									input(type = "radio" name = "periodicity" value = "monthly" id='monthlyRadio')
+									label(for='monthlyRadio')  Monthly
 						input.w3-button.w3-gray.w3-right.w3-round-xxlarge(type="submit" value="Submit" style='padding:8px 29px')
 					hr
 					block content
