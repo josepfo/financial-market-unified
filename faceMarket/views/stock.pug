@@ -4,7 +4,9 @@ block content
     each value, index in answer
       if index == "Meta Data"
         if value["2. Symbol"] == "BUD" 
-          h1="Anheuser-Busch InBev" 
+          h1="Anheuser-Busch InBev"
+        if value["2. Symbol"] == "FB" 
+          h1="Facebook" 
         if value["2. Symbol"] == "ANTM" 
           h1="Anthem" 
         if value["2. Symbol"] == "BCS" 
@@ -103,7 +105,7 @@ block content
            h1="Xylem Inc."
         if value["2. Symbol"] == "AAPL" 
            h1="Apple Inc."
-        h1=value["1. Information"]
+        h3=value["1. Information"]
       else
         table.w3-table-all
           tr

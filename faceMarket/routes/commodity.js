@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
+var passport = require('passport');
 
 const API_KEY = '&api_key=QY8zng_hFHyM3DEwWxiM';
 
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/', passport.authenticate('protegida', {session: false,
+        failureRedirect: '../signinup' 
+    }), function(req, res) {
 
   axios.all([
     // GOLD COMEX
@@ -45,7 +48,6 @@ router.get('/', function(req, res) {
                             r7.data.dataset_data.data
                           );
 
-    //console.log(target)
     res.render('commodity', { answer: target })
   }))
   .catch(erro => {
@@ -56,7 +58,9 @@ router.get('/', function(req, res) {
 });
 
 /* GET Commodity Period. */
-router.get('/:com/:period', function(req, res) {
+router.get('/:com/:period', passport.authenticate('protegida', {session: false,
+        failureRedirect: '../../signinup' 
+    }), function(req, res) {
   
   // filter wrong pediod
   if( req.params.period.localeCompare("daily") != 0 &&
@@ -92,7 +96,6 @@ router.get('/:com/:period', function(req, res) {
 
   axios.get('https://www.quandl.com/api/v3/datasets/CHRIS/' + com + '/data.json?&limit=50&collapse=' + req.params.period + API_KEY)
     .then(resposta=> {
-      //console.log(resposta.data.dataset_data.data)
       res.render('commodity-time', { commodity: req.params.com + ' ' + req.params.period, answer: resposta.data.dataset_data.data })
     })
     .catch(erro => {

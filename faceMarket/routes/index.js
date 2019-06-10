@@ -77,7 +77,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.get('/logout',(req,res) => {
-    req.session.destroy
+    req.session.destroy()
     req.logout()
     res.redirect('/signinup')
 })

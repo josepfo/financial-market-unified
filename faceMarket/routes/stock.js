@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
+var passport = require('passport');
 
 API_KEY = '&apikey=STKRW67RG4VYBDMK'
 
 /* GET home page. */
-router.get('/:stock/:period', function(req, res) {
+router.get('/:stock/:period', passport.authenticate('protegida', {session: false,
+        failureRedirect: '../../signinup' 
+    }), function(req, res) {
   var time_period
  
   if(req.params.period.localeCompare("hourly") == 0){

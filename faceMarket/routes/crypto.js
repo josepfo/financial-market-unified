@@ -2,11 +2,14 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 const moment = require('moment');
+var passport = require('passport');
 
 const API_KEY = '&api_key={031d68b9a5d59bce09ffa82ef258b56f97a125a7aebd7ba266e3583035ad3ed6}';
 
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/', passport.authenticate('protegida', {session: false,
+        failureRedirect: '../signinup' 
+    }), function(req, res) {
   axios.get('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD' + API_KEY)
     .then(resposta=> res.render('crypto', { answer: resposta.data.Data }))
     .catch(erro => {
@@ -16,7 +19,9 @@ router.get('/', function(req, res) {
 });
 
 /* GET Crypto Period. */
-router.get('/:crypto/:period', function(req, res) {
+router.get('/:crypto/:period', passport.authenticate('protegida', {session: false,
+        failureRedirect: '../../signinup' 
+    }), function(req, res) {
   // get period
   var time_period
   switch (req.params.period) {
@@ -38,7 +43,6 @@ router.get('/:crypto/:period', function(req, res) {
       ans = ans.reverse()      
       // modificar milisec para date
       ans.forEach(entry => entry.time = moment.unix(entry.time).format('YYYY-MM-DD H:mm:ss'));
-      //console.log(resposta.data.dataset_data.data)
       res.render('crypto-time', { crypto: req.params.crypto + ' ' + req.params.period, answer: ans })
     })
     .catch(erro => {
