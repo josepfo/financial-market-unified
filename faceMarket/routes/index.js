@@ -34,10 +34,8 @@ router.get('/signinup', (req, res) => {
 router.post('/login', async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {     
         try {
-            if(err || !user){
-                if(err) return next(err);
-                else return next(new Error('Utilizador inexistente.'))
-            }
+            if(err || !user)
+                next(err);
             req.login(user, {session: false}, async (error) => {
                 if(error) return next(error)
                 const myuser = {_id: user._id} 
@@ -57,10 +55,8 @@ router.post('/login', async (req, res, next) => {
 router.post('/register', async (req, res, next) => {
     passport.authenticate('register', async (err, user, info) => {     
         try {
-            if(err || !user){
-                if(err) return next(err);
-                else return next(new Error('Utilizador inexistente.'))
-            }
+            if(err || !user)
+                next(err);
             req.login(user, {session: false}, async (error) => {
                 if(error) return next(error)
                 const myuser = {_id: user._id} 
