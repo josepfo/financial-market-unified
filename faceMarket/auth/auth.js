@@ -11,10 +11,10 @@ passport.use('register', new localStrategy({
 }, async (email, password, done) => {
     try{
         var user = await UserModel.create({email, password})
-        return done(null, user, {message: 'Registo feito com sucesso.'})
+        return done(null, user, {message: 'Successful registration.'})
     }
     catch(error){
-        return done(error)
+        return done(new Error('User allready registed.'), false, {message: 'User allready registed.'})
     }
 }))
 
@@ -26,11 +26,11 @@ passport.use('login', new localStrategy({
     try{
         var user = await UserModel.findOne({email: em})
         if(!user) 
-            return done(null, false, {message: 'Utilizador não existe!'})
+            return done(new Error('Non-existent User.'), false, {message: 'Non-existent User.'})
         var valid = await user.isValidPassword(pass)
         if(!valid)
-            return done(null, false, {message: 'Password inválida!'})
-        return done(null, user, {message: 'Login feito com sucesso.'})
+            return done(new Error('Invalid password.'), false, {message: 'Invalid password.'})
+        return done(null, user, {message: 'Login done successfully.'})
     }
     catch(error){
         return done(error)
