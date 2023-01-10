@@ -19,7 +19,7 @@
     "mongoose": "^5.5.13",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
+    "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "pug": "^2.0.3",
     "session-file-store": "^1.2.0",
